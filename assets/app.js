@@ -1,6 +1,13 @@
 (function () {
   "use strict";
-  var LECTURES = 9;
+  var LIDS = {};
+  try { LIDS = JSON.parse(document.body.getAttribute("data-lids")) || {}; } catch (e) {}
+  function lidsOf(c) {
+    if (c) return LIDS[c] || [];
+    var all = [];
+    Object.keys(LIDS).forEach(function (k) { all = all.concat(LIDS[k]); });
+    return all;
+  }
   var KEY = "tcs-progress-v1";
 
   function load() {
@@ -34,18 +41,20 @@
   if (scrim) scrim.addEventListener("click", function () { document.body.classList.remove("nav-open"); });
 
   /* ---------- progress ---------- */
-  function countDone() {
+  function countDone(c) {
     var n = 0;
-    for (var i = 1; i <= LECTURES; i++) if (state.done["lecture-" + i]) n++;
+    lidsOf(c).forEach(function (id) { if (state.done[id]) n++; });
     return n;
   }
   function renderProgress() {
-    var n = countDone();
     document.querySelectorAll("[data-lid]").forEach(function (el) {
       el.classList.toggle("done", !!state.done[el.getAttribute("data-lid")]);
     });
-    document.querySelectorAll(".js-done-count").forEach(function (el) { el.textContent = n; });
-    document.querySelectorAll(".js-bar").forEach(function (el) { el.style.width = Math.round(n / LECTURES * 100) + "%"; });
+    document.querySelectorAll(".js-done-count").forEach(function (el) { el.textContent = countDone(el.getAttribute("data-course")); });
+    document.querySelectorAll(".js-bar").forEach(function (el) {
+      var c = el.getAttribute("data-course"), t = lidsOf(c).length;
+      el.style.width = (t ? Math.round(countDone(c) / t * 100) : 0) + "%";
+    });
     var btn = document.querySelector(".js-mark");
     if (btn) {
       var id = btn.getAttribute("data-id");
@@ -210,6 +219,36 @@
     build();
   }
 
+  /* ---------- non-violent communication ---------- */
+  var nv = document.querySelector(".js-nvc");
+  if (nv) {
+    var nf = nv.querySelectorAll("[data-f]");
+    var nout = nv.querySelector(".out");
+    function buildNvc() {
+      var v = {};
+      nf.forEach(function (x) { v[x.getAttribute("data-f")] = x.value.trim(); });
+      nout.textContent = "Я бачу, що " + (v.obs || "…") + ". Я відчуваю " + (v.feel || "…") + ", бо для мене важлива " + (v.need || "…") + ". Чи готові ви " + (v.req || "…") + "?";
+    }
+    nf.forEach(function (x) { x.addEventListener("input", buildNvc); });
+    buildNvc();
+  }
+
+  /* ---------- resource check ---------- */
+  document.querySelectorAll(".js-check").forEach(function (box) {
+    var cbs = box.querySelectorAll("input[type=checkbox]");
+    var res = box.querySelector(".score");
+    function upd() {
+      var k = 0;
+      cbs.forEach(function (c) { if (c.checked) k++; });
+      res.className = "score " + (k >= 4 ? "bad" : "good");
+      res.textContent = k === 0 ? "Схоже, ресурс у вас є. Чудово! Бережіть його." :
+        k < 4 ? "Відмічено " + k + ". Звичайна втома буває в усіх. Подаруйте собі цього тижня щось із лівої картки нижче." :
+        "Відмічено " + k + ". Це сигнал пригальмувати й подбати про себе. Подивіться картки нижче і, можливо, поговоріть із кимось, кому довіряєте.";
+    }
+    cbs.forEach(function (c) { c.addEventListener("change", upd); });
+    upd();
+  });
+
   /* ---------- printable forms ---------- */
   document.querySelectorAll(".js-print").forEach(function (b) {
     b.addEventListener("click", function () { window.print(); });
@@ -224,8 +263,8 @@
       var t = tips[i];
       document.querySelector(".js-tip-text").innerHTML = t.t;
       var a = document.querySelector(".js-tip-link");
-      a.href = "lecture-" + t.n + ".html#practice";
-      a.textContent = "Із теми " + t.n + ": " + t.s + " →";
+      a.href = t.id + ".html#practice";
+      a.textContent = t.label + ": " + t.s + " →";
     }
     showTip(day);
     document.querySelector(".js-tip-next").addEventListener("click", function () {
@@ -236,7 +275,8 @@
   document.querySelectorAll(".js-random-lecture").forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
-      location.href = "lecture-" + (1 + Math.floor(Math.random() * LECTURES)) + ".html";
+      var all = lidsOf();
+      location.href = all[Math.floor(Math.random() * all.length)] + ".html";
     });
   });
 

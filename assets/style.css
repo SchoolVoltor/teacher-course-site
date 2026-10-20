@@ -2,7 +2,7 @@
   --bg:#f7f4ee; --surface:#ffffff; --surface-2:#f1ece2; --text:#22201c; --muted:#6a6459;
   --line:#e2dbcd; --accent:#1f6f5c; --accent-2:#c8742c; --accent-soft:#e3f0ec; --warn-soft:#fbeedd;
   --ok:#2f8a4a; --bad:#b6402f; --ok-soft:#e5f3e8; --bad-soft:#f8e3df;
-  --m1:#1f6f5c; --m2:#3b5ea8; --m3:#a2512b;
+  --m1:#1f6f5c; --m2:#3b5ea8; --m3:#a2512b; --m4:#7a4fa0; --m5:#9a6a12;
   --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.05);
   --font:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
   --serif:Georgia,"Times New Roman",serif;
@@ -12,14 +12,14 @@
     --bg:#16181a; --surface:#1f2225; --surface-2:#272b2f; --text:#ece7de; --muted:#a59f94;
     --line:#34393e; --accent:#5cc0a3; --accent-2:#e39a57; --accent-soft:#1d3530; --warn-soft:#3a2d1e;
     --ok:#6fcf86; --bad:#ef8a78; --ok-soft:#1c3324; --bad-soft:#3a2420;
-    --m1:#5cc0a3; --m2:#86a6ec; --m3:#e39a6e; --shadow:none;
+    --m1:#5cc0a3; --m2:#86a6ec; --m3:#e39a6e; --m4:#c39be6; --m5:#e0b65a; --shadow:none;
   }
 }
 :root[data-theme="dark"]{
   --bg:#16181a; --surface:#1f2225; --surface-2:#272b2f; --text:#ece7de; --muted:#a59f94;
   --line:#34393e; --accent:#5cc0a3; --accent-2:#e39a57; --accent-soft:#1d3530; --warn-soft:#3a2d1e;
   --ok:#6fcf86; --bad:#ef8a78; --ok-soft:#1c3324; --bad-soft:#3a2420;
-  --m1:#5cc0a3; --m2:#86a6ec; --m3:#e39a6e; --shadow:none;
+  --m1:#5cc0a3; --m2:#86a6ec; --m3:#e39a6e; --m4:#c39be6; --m5:#e0b65a; --shadow:none;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -66,6 +66,8 @@ li{margin:.25em 0}
 .pill.m1{background:color-mix(in srgb,var(--m1) 14%,transparent);color:var(--m1)}
 .pill.m2{background:color-mix(in srgb,var(--m2) 14%,transparent);color:var(--m2)}
 .pill.m3{background:color-mix(in srgb,var(--m3) 14%,transparent);color:var(--m3)}
+.pill.m4{background:color-mix(in srgb,var(--m4) 14%,transparent);color:var(--m4)}
+.pill.m5{background:color-mix(in srgb,var(--m5) 14%,transparent);color:var(--m5)}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:14px}
@@ -214,3 +216,11 @@ textarea{min-height:70px;resize:vertical}
 .card.hook p{margin:0}
 .tip-day p{margin:0 0 10px}
 .tip-day .row{align-items:center;gap:12px;flex-wrap:wrap}
+
+.nav-course{margin:22px 0 2px;padding-top:12px;border-top:1px solid var(--line);font-weight:700;font-size:.9rem;color:var(--text)}
+.nav-course:first-of-type{border-top:0;padding-top:0}
+.course-head{margin-top:40px;padding-top:8px;border-top:2px solid var(--line)}
+.course-head .n{font-size:.75rem;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.js-check label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+.js-check input{margin-top:5px;flex:none}
+.js-check .score{font-size:1rem;font-weight:600}.js-check .score.bad{color:var(--accent-2)}
