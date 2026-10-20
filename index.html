@@ -8,12 +8,15 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-lids='{"c1": ["lecture-1", "lecture-2", "lecture-3", "lecture-4", "lecture-5", "lecture-6", "lecture-7", "lecture-8", "lecture-9"], "c2": ["garmonia-1", "garmonia-2", "garmonia-3", "garmonia-4", "garmonia-5", "garmonia-6", "garmonia-7", "garmonia-8", "garmonia-9", "garmonia-10", "garmonia-11", "garmonia-12", "garmonia-13", "garmonia-14", "garmonia-15"]}'>
+<div class="readbar"><i></i></div>
+<a class="skip" href="#main">Перейти до змісту</a>
 <div class="layout">
 <aside class="sidebar">
 <a class="brand" href="index.html"><span class="brand-mark">М</span><span><b>Майстерня молодого вчителя</b><small>Комунікація і гармонійне освітнє середовище</small></span></a>
+<div class="gsearch"><input class="js-site-search" type="search" placeholder="Пошук: тема, термін, випадок…" aria-label="Пошук по сайту" autocomplete="off"><kbd>/</kbd><div class="sresults" role="listbox"></div></div>
 <nav class="nav">
 <a class="active" href="index.html"><span class="num" style="border:0">•</span><span>Головна</span></a>
-<div class="nav-course">Курс 1. Партнерство і професійна комунікація вчителя</div>
+<details class="nav-c" open><summary><span>Курс 1. Партнерство і професійна комунікація вчителя</span><small><b class="js-done-count" data-course="c1">0</b>/9</small></summary>
 <div class="nav-group">Модуль 1. Культура спілкування, мовлення і риторика</div>
 <a class="" href="lecture-1.html" data-lid="lecture-1"><span class="num"><span>1</span></span><span>Типи спілкування</span></a>
 <a class="" href="lecture-2.html" data-lid="lecture-2"><span class="num"><span>2</span></span><span>Культура мовлення</span></a>
@@ -26,7 +29,8 @@
 <div class="nav-group">Модуль 3. Конфлікти, педагогічний такт і етика</div>
 <a class="" href="lecture-8.html" data-lid="lecture-8"><span class="num"><span>8</span></span><span>Педагогічні конфлікти</span></a>
 <a class="" href="lecture-9.html" data-lid="lecture-9"><span class="num"><span>9</span></span><span>Такт і етика</span></a>
-<div class="nav-course">Курс 2. Психологічні основи розвитку гармонійного освітнього середовища</div>
+</details>
+<details class="nav-c" open><summary><span>Курс 2. Психологічні основи розвитку гармонійного освітнього середовища</span><small><b class="js-done-count" data-course="c2">0</b>/15</small></summary>
 <div class="nav-group">Модуль 1. Теоретичні засади гармонійного освітнього середовища</div>
 <a class="" href="garmonia-1.html" data-lid="garmonia-1"><span class="num"><span>1</span></span><span>Гармонійне середовище</span></a>
 <a class="" href="garmonia-2.html" data-lid="garmonia-2"><span class="num"><span>2</span></span><span>Безпека під час війни</span></a>
@@ -44,26 +48,29 @@
 <a class="" href="garmonia-13.html" data-lid="garmonia-13"><span class="num"><span>13</span></span><span>Готовність до змін</span></a>
 <a class="" href="garmonia-14.html" data-lid="garmonia-14"><span class="num"><span>14</span></span><span>Авторитет і лідерство</span></a>
 <a class="" href="garmonia-15.html" data-lid="garmonia-15"><span class="num"><span>15</span></span><span>Гендерна рівність</span></a>
+</details>
 <div class="nav-course">Практика і підготовка</div>
+<a class="" href="cases.html"><span class="num" style="border:0">•</span><span>Практикум: усі випадки</span></a>
 <a class="" href="toolkit.html"><span class="num" style="border:0">•</span><span>Інструменти вчителя</span></a>
 <a class="" href="exam.html"><span class="num" style="border:0">•</span><span>Питання до заліку (курс 1)</span></a>
-<a class="" href="exam-2.html"><span class="num" style="border:0">•</span><span>Питання до іспиту (курс 2)</span></a>
 <a class="" href="glossary.html"><span class="num" style="border:0">•</span><span>Глосарій</span></a>
 <a class="" href="resources.html"><span class="num" style="border:0">•</span><span>Матеріали курсів</span></a>
 </nav>
 <div class="side-progress">Уже пройдено: <b class="js-done-count">0</b> з 24<div class="bar"><i class="js-bar"></i></div></div>
-<button class="theme-toggle" type="button">Світла / темна тема</button>
+<div class="side-tools"><button class="theme-toggle" type="button" title="Світла або темна тема">◐ Тема</button><button class="js-fs" data-d="-1" type="button" title="Менший шрифт" aria-label="Менший шрифт">A−</button><button class="js-fs" data-d="1" type="button" title="Більший шрифт" aria-label="Більший шрифт">A+</button></div>
 </aside>
 <div class="scrim"></div>
 <div class="main">
-<div class="topbar"><button class="menu-btn" type="button" aria-label="Меню">☰ Меню</button><b>Майстерня молодого вчителя</b></div>
-<main class="content">
+<div class="topbar"><button class="menu-btn" type="button" aria-label="Меню">☰ Меню</button><b>Майстерня молодого вчителя</b><button class="search-btn" type="button" aria-label="Пошук">🔍</button></div>
+<main class="content" id="main">
 
 <section class="hero">
 <h1>Майстерня молодого вчителя</h1>
 <p>Привіт! Тут зібрано все корисне з двох курсів: «Партнерство і професійна комунікація вчителя» та «Психологічні основи розвитку гармонійного освітнього середовища». Без канцеляриту й поспіху: кожна тема починається зі знайомої шкільної ситуації, а закінчується простою ідеєю, яку можна спробувати вже завтра. Читайте в зручному темпі, з будь-якої теми.</p>
 <div class="row" style="margin-top:16px"><a class="btn" href="#course-1">Курс 1: комунікація</a><a class="btn" href="#course-2">Курс 2: гармонійне середовище</a><a class="btn ghost js-random-lecture" href="lecture-5.html">Випадкова тема</a></div>
 </section>
+
+<div class="card resume js-resume" hidden></div>
 
 <div class="grid g3">
 <div class="card"><div class="stat"><span class="js-done-count">0</span>/24</div><p>тем уже позаду. Без дедлайнів, рухайтеся як вам зручно.</p><div class="bar"><i class="js-bar"></i></div></div>
@@ -85,23 +92,25 @@
 
 <section class="course-head" id="course-1"><span class="n">КУРС 1 · 9 ТЕМ</span>
 <h2 style="margin-top:4px">Партнерство і професійна комунікація вчителя</h2><p>Як говорити так, щоб вас чули: типи спілкування, культура мовлення, риторика, голос, конфлікти й педагогічний такт.</p>
-<p class="source">Пройдено <b class="js-done-count" data-course="c1">0</b> з 9</p><div class="bar" style="max-width:320px"><i class="js-bar" data-course="c1"></i></div></section>
-<section class="module"><div class="module-head"><span class="pill m1">Модуль 1</span><h2>Культура спілкування, мовлення і риторика</h2></div>
+<p class="source">Пройдено <b class="js-done-count" data-course="c1">0</b> з 9</p><div class="bar" style="max-width:320px"><i class="js-bar" data-course="c1"></i></div>
+<details class="map-toggle"><summary>🧠 Ментальна карта курсу</summary><div><div class="mmap"><div class="mm-side l"><a class="mm-b" href="#m1" style="--c:#1f6f5c"><b>Модуль 1. Культура спілкування, мовлення і риторика</b><ul><li>1. Типи спілкування</li><li>2. Культура мовлення</li><li>3. Риторика</li><li>4. Публічний виступ</li></ul></a><a class="mm-b" href="#m2" style="--c:#3b5ea8"><b>Модуль 2. Педагогічне спілкування і техніка вчителя</b><ul><li>5. Педагогічне спілкування</li><li>6. Мовлення і голос</li><li>7. Невербальна комунікація</li></ul></a></div><div class="mm-core"><span>Курс 1</span><small>Партнерство і професійна комунікація вчителя</small></div><div class="mm-side r"><a class="mm-b" href="#m3" style="--c:#c8742c"><b>Модуль 3. Конфлікти, педагогічний такт і етика</b><ul><li>8. Педагогічні конфлікти</li><li>9. Такт і етика</li></ul></a></div></div></div></details></section>
+<section class="module" id="m1"><div class="module-head"><span class="pill m1">Модуль 1</span><h2>Культура спілкування, мовлення і риторика</h2></div>
 <p class="lead" style="font-size:1rem">Звідки беруться наші звички спілкування, що таке культура мовлення і як побудувати переконливий виступ.</p><div class="grid g3"><a class="card lcard" href="lecture-1.html" data-lid="lecture-1">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 1</span><h3>Історичні тенденції розвитку міжособистісного спілкування</h3><p>Статусний, негативістичний і демократичний типи спілкування та їхні сліди в сучасній школі.</p></a><a class="card lcard" href="lecture-2.html" data-lid="lecture-2">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 2</span><h3>Культура мовлення як складова загальнолюдської культури</h3><p>Культура мови й мовлення, комунікативні ознаки якісного мовлення, функції мови, документ.</p></a><a class="card lcard" href="lecture-3.html" data-lid="lecture-3">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 3</span><h3>Історико-теоретичні засади риторики</h3><p>Що таке риторика, її зв'язки з іншими науками та сім законів переконливого мовлення.</p></a><a class="card lcard" href="lecture-4.html" data-lid="lecture-4">
-<span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 4</span><h3>Теоретичні основи побудови публічної промови</h3><p>Як готувати, будувати й аналізувати публічний виступ: від батьківських зборів до педради.</p></a></div></section><section class="module"><div class="module-head"><span class="pill m2">Модуль 2</span><h2>Педагогічне спілкування і техніка вчителя</h2></div>
+<span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 4</span><h3>Теоретичні основи побудови публічної промови</h3><p>Як готувати, будувати й аналізувати публічний виступ: від батьківських зборів до педради.</p></a></div></section><section class="module" id="m2"><div class="module-head"><span class="pill m2">Модуль 2</span><h2>Педагогічне спілкування і техніка вчителя</h2></div>
 <p class="lead" style="font-size:1rem">Стилі та бар'єри спілкування з учнями, голос, мовлення, слухання, міміка й жести.</p><div class="grid g3"><a class="card lcard" href="lecture-5.html" data-lid="lecture-5">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 5</span><h3>Педагогічне спілкування як взаємодія</h3><p>Функції, принципи і стилі педагогічного спілкування, бар'єри та моделі поведінки вчителя.</p></a><a class="card lcard" href="lecture-6.html" data-lid="lecture-6">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 6</span><h3>Вербальна комунікація педагога</h3><p>Функції і різновиди мовлення вчителя, словесні дії, слухання, техніка мовлення, дикція і голос.</p></a><a class="card lcard" href="lecture-7.html" data-lid="lecture-7">
-<span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 7</span><h3>Невербальна комунікація педагога</h3><p>Пантоміміка, постава, хода, міміка, контакт очей, міжособистісний простір, «вага» і «мобілізація».</p></a></div></section><section class="module"><div class="module-head"><span class="pill m3">Модуль 3</span><h2>Конфлікти, педагогічний такт і етика</h2></div>
+<span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 7</span><h3>Невербальна комунікація педагога</h3><p>Пантоміміка, постава, хода, міміка, контакт очей, міжособистісний простір, «вага» і «мобілізація».</p></a></div></section><section class="module" id="m3"><div class="module-head"><span class="pill m3">Модуль 3</span><h2>Конфлікти, педагогічний такт і етика</h2></div>
 <p class="lead" style="font-size:1rem">Як передбачати та розв'язувати конфлікти, зберігати гідність учня і власний авторитет.</p><div class="grid g3"><a class="card lcard" href="lecture-8.html" data-lid="lecture-8">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 8</span><h3>Конфлікти у педагогічних ситуаціях, шляхи їхнього вирішення</h3><p>Види і причини конфліктів, їхня динаміка, стилі поведінки, переговори й медіація.</p></a><a class="card lcard" href="lecture-9.html" data-lid="lecture-9">
 <span class="status">✓ вивчено</span><span class="n">ЛЕКЦІЯ 9</span><h3>Педагогічний такт і педагогічна етика вчителя</h3><p>Складові педагогічного такту, його принципи, тактичні ходи, функції етики, ефективне заохочення.</p></a></div></section><section class="course-head" id="course-2"><span class="n">КУРС 2 · 15 ТЕМ</span>
 <h2 style="margin-top:4px">Психологічні основи розвитку гармонійного освітнього середовища</h2><p>Як зробити клас місцем, де безпечно й добре: психологічна безпека, емоційний інтелект, мотивація, інклюзія, булінг, вигорання і лідерство.</p>
-<p class="source">Пройдено <b class="js-done-count" data-course="c2">0</b> з 15</p><div class="bar" style="max-width:320px"><i class="js-bar" data-course="c2"></i></div></section>
-<section class="module"><div class="module-head"><span class="pill m4">Модуль 1</span><h2>Теоретичні засади гармонійного освітнього середовища</h2></div>
+<p class="source">Пройдено <b class="js-done-count" data-course="c2">0</b> з 15</p><div class="bar" style="max-width:320px"><i class="js-bar" data-course="c2"></i></div>
+<details class="map-toggle"><summary>🧠 Ментальна карта курсу</summary><div><div class="mmap"><div class="mm-side l"><a class="mm-b" href="#m4" style="--c:#1f6f5c"><b>Модуль 1. Теоретичні засади гармонійного освітнього середовища</b><ul><li>1. Гармонійне середовище</li><li>2. Безпека під час війни</li><li>3. Теорії розвитку особистості</li><li>4. Конфлікти, медіація, ННС</li><li>5. Емоційний інтелект</li><li>6. Профілактика вигорання</li><li>7. Мотиваційне середовище</li><li>8. Інклюзія</li></ul></a></div><div class="mm-core"><span>Курс 2</span><small>Психологічні основи розвитку гармонійного освітнього середовища</small></div><div class="mm-side r"><a class="mm-b" href="#m5" style="--c:#3b5ea8"><b>Модуль 2. Практика: безпека, довіра, рівність</b><ul><li>9. Профілактика булінгу</li><li>10. Токсичне середовище</li><li>11. Психологічна безпека</li><li>12. Цифрове середовище</li><li>13. Готовність до змін</li><li>14. Авторитет і лідерство</li><li>15. Гендерна рівність</li></ul></a></div></div></div></details></section>
+<section class="module" id="m4"><div class="module-head"><span class="pill m4">Модуль 1</span><h2>Теоретичні засади гармонійного освітнього середовища</h2></div>
 <p class="lead" style="font-size:1rem">Що таке гармонійне й безпечне середовище, як розвивається особистість, як говорити, домовлятися і берегти себе.</p><div class="grid g3"><a class="card lcard" href="garmonia-1.html" data-lid="garmonia-1">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 1</span><h3>Поняття гармонійного освітнього середовища в науковій літературі та практиці творчих педагогів. Моделі діагностики освітнього середовища</h3><p>Що таке гармонійне освітнє середовище, з чого воно складається, як його будували творчі педагоги і як його «виміряти».</p></a><a class="card lcard" href="garmonia-2.html" data-lid="garmonia-2">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 2</span><h3>Психолого-педагогічні характеристики безпечного освітнього середовища в умовах війни</h3><p>Що робить школу безпечною під час війни: від укриття й алгоритмів тривоги до психологічної підтримки дітей і батьків.</p></a><a class="card lcard" href="garmonia-3.html" data-lid="garmonia-3">
@@ -110,7 +119,7 @@
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 5</span><h3>Емоційний інтелект і емпатія вчителя: значення для освітнього процесу</h3><p>П'ять складових емоційного інтелекту за Гоулманом, сила вчительської емпатії і як усе це пов'язано з НУШ.</p></a><a class="card lcard" href="garmonia-6.html" data-lid="garmonia-6">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 6</span><h3>Психологічна підтримка та профілактика вигорання</h3><p>Як розпізнати емоційне вигорання, чому воно настає і що допомагає вчителю зберегти ресурс.</p></a><a class="card lcard" href="garmonia-7.html" data-lid="garmonia-7">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 7</span><h3>Мотиваційне середовище у навчанні: чинники та вплив</h3><p>Чому одні учні горять навчанням, а інші ні, і що в цьому залежить від учителя та атмосфери класу.</p></a><a class="card lcard" href="garmonia-8.html" data-lid="garmonia-8">
-<span class="status">✓ вивчено</span><span class="n">ТЕМА 8</span><h3>Інклюзія як складова гармонійного освітнього середовища</h3><p>Чим інклюзія відрізняється від інтеграції, хто входить у команду супроводу і як виглядає ІПР.</p></a></div></section><section class="module"><div class="module-head"><span class="pill m5">Модуль 2</span><h2>Практика: безпека, довіра, рівність</h2></div>
+<span class="status">✓ вивчено</span><span class="n">ТЕМА 8</span><h3>Інклюзія як складова гармонійного освітнього середовища</h3><p>Чим інклюзія відрізняється від інтеграції, хто входить у команду супроводу і як виглядає ІПР.</p></a></div></section><section class="module" id="m5"><div class="module-head"><span class="pill m5">Модуль 2</span><h2>Практика: безпека, довіра, рівність</h2></div>
 <p class="lead" style="font-size:1rem">Булінг, токсичність, цифрові ризики, готовність до змін, авторитет і гендерна рівність у шкільному житті.</p><div class="grid g3"><a class="card lcard" href="garmonia-9.html" data-lid="garmonia-9">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 9</span><h3>Профілактика булінгу: причини, форми, запобігання</h3><p>Як відрізнити булінг від конфлікту, помітити його вчасно і що робити вчителю крок за кроком.</p></a><a class="card lcard" href="garmonia-10.html" data-lid="garmonia-10">
 <span class="status">✓ вивчено</span><span class="n">ТЕМА 10</span><h3>Токсичне освітнє середовище: розпізнавання та подолання</h3><p>Як розпізнати «отруйну» атмосферу в класі чи колективі і що з нею можна зробити.</p></a><a class="card lcard" href="garmonia-11.html" data-lid="garmonia-11">
@@ -122,6 +131,7 @@
 
 <h2>Корисне щодня</h2>
 <div class="grid g2">
+<a class="card lcard" href="cases.html"><span class="n">ПРАКТИКУМ</span><h3>Практичні випадки з розборами</h3><p>Ситуації з учнями, батьками й колегами з усіх тем: спершу подумайте самі, потім відкрийте розбір.</p></a>
 <a class="card lcard" href="toolkit.html#nvc"><span class="n">ІНСТРУМЕНТ</span><h3>Конструктор ненасильницького спілкування</h3><p>Спостереження, почуття, потреба, прохання: чотири кроки за Розенбергом.</p></a>
 <a class="card lcard" href="toolkit.html#resource"><span class="n">ІНСТРУМЕНТ</span><h3>Чек-ап ресурсу</h3><p>Як ви сьогодні? Коротка самоперевірка, щоб помітити втому раніше, ніж вигорання.</p></a>
 <a class="card lcard" href="toolkit.html#bullying"><span class="n">ІНСТРУМЕНТ</span><h3>Якщо помітили булінг</h3><p>Покроковий план дій для вчителя.</p></a>
@@ -133,6 +143,8 @@
 </main>
 </div>
 </div>
+<button class="totop" type="button" aria-label="Нагору">↑</button>
+<script src="assets/search-index.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

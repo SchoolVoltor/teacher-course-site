@@ -280,5 +280,143 @@
     });
   });
 
+  /* ---------- glossary deep link ---------- */
+  if (gs) {
+    var qp = new URLSearchParams(location.search).get("q");
+    if (qp) { gs.value = qp; gs.dispatchEvent(new Event("input")); }
+  }
+
+  /* ---------- font size ---------- */
+  function applyFs() { document.documentElement.style.fontSize = (state.fs ? 100 + state.fs * 7.5 : 100) + "%"; }
+  applyFs();
+  document.querySelectorAll(".js-fs").forEach(function (b) {
+    b.addEventListener("click", function () {
+      state.fs = Math.max(-1, Math.min(3, (state.fs || 0) + +b.getAttribute("data-d")));
+      applyFs(); save(state);
+    });
+  });
+
+  /* ---------- sidebar: keep the current page in view ---------- */
+  var side = document.querySelector(".sidebar");
+  var act = document.querySelector(".nav a.active");
+  if (side && act) side.scrollTop = Math.max(0, act.offsetTop - side.clientHeight / 2);
+
+  /* ---------- reading bar & back to top ---------- */
+  var rb = document.querySelector(".readbar i");
+  var top = document.querySelector(".totop");
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    if (rb) rb.style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + "%";
+    if (top) top.classList.toggle("show", scrollY > 900);
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+  if (top) top.addEventListener("click", function () { scrollTo({ top: 0, behavior: "smooth" }); });
+
+  /* ---------- lecture: on-page navigation highlight ---------- */
+  var railLinks = document.querySelectorAll(".rail a[data-sec]");
+  if (railLinks.length && "IntersectionObserver" in window) {
+    var byId = {};
+    railLinks.forEach(function (a) { byId[a.getAttribute("data-sec")] = a; });
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) {
+        if (e.isIntersecting && byId[e.target.id]) {
+          railLinks.forEach(function (a) { a.classList.remove("on"); });
+          byId[e.target.id].classList.add("on");
+        }
+      });
+    }, { rootMargin: "0px 0px -70% 0px" });
+    Object.keys(byId).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  /* ---------- remember where you stopped ---------- */
+  var pid = document.body.getAttribute("data-page");
+  if (pid) {
+    state.last = { id: pid, t: document.body.getAttribute("data-title"), l: document.body.getAttribute("data-label") };
+    save(state);
+  }
+  var resume = document.querySelector(".js-resume");
+  if (resume) {
+    var all = lidsOf(), nextId = null;
+    for (var i = 0; i < all.length; i++) if (!state.done[all[i]]) { nextId = all[i]; break; }
+    var html = "";
+    if (state.last && !state.done[state.last.id]) {
+      html = '<div><span class="n">ПРОДОВЖИТИ ЧИТАННЯ</span><h3>' + state.last.t + '</h3><p class="source">' + state.last.l + ' · ви зупинилися тут минулого разу</p></div><a class="btn" href="' + state.last.id + '.html">Продовжити →</a>';
+    } else if (nextId && countDone()) {
+      var link = document.querySelector('.lcard[data-lid="' + nextId + '"] h3');
+      html = '<div><span class="n">ЩО ДАЛІ</span><h3>' + (link ? link.textContent : "Наступна тема") + '</h3><p class="source">Наступна тема, яку ви ще не позначили</p></div><a class="btn" href="' + nextId + '.html">Відкрити →</a>';
+    }
+    if (html) { resume.innerHTML = html; resume.hidden = false; }
+  }
+
+  /* ---------- site search ---------- */
+  var sIn = document.querySelector(".js-site-search");
+  var sOut = document.querySelector(".sresults");
+  var DATA = window.SEARCH || [];
+  function norm(x) { return (x || "").toLowerCase().replace(/[’'ʼ]/g, "'").replace(/ё/g, "е"); }
+  DATA.forEach(function (d) { d._t = norm(d.t); d._a = norm(d.t + " " + d.s + " " + d.w + " " + d.k); });
+  var sel = -1;
+  function escH(x) { return x.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function runSearch() {
+    var q = norm(sIn.value.trim());
+    sel = -1;
+    if (q.length < 2) { sOut.innerHTML = ""; sOut.classList.remove("open"); return; }
+    var words = q.split(/\s+/);
+    var res = [];
+    DATA.forEach(function (d) {
+      for (var i = 0; i < words.length; i++) if (d._a.indexOf(words[i]) === -1) return;
+      var score = (d._t.indexOf(q) === 0 ? 0 : d._t.indexOf(q) > -1 ? 1 : 2) * 10 + ["Тема", "Термін", "Інструмент", "Розділ", "Випадок", "Прийом"].indexOf(d.k);
+      res.push([score, d]);
+    });
+    res.sort(function (a, b) { return a[0] - b[0]; });
+    if (!res.length) { sOut.innerHTML = '<p class="snone">Нічого не знайшлося. Спробуйте інше слово.</p>'; sOut.classList.add("open"); placeResults(); return; }
+    sOut.innerHTML = res.slice(0, 12).map(function (r) {
+      var d = r[1];
+      return '<a role="option" href="' + d.u + '"><span class="sk">' + d.k + '</span><b>' + escH(d.t) + '</b><small>' + escH(d.w) + (d.s ? " · " + escH(d.s) : "") + '</small></a>';
+    }).join("") + (res.length > 12 ? '<p class="snone">Показано 12 з ' + res.length + '. Уточніть запит.</p>' : "");
+    sOut.classList.add("open");
+    placeResults();
+  }
+  function placeResults() {
+    if (matchMedia("(max-width:900px)").matches) { sOut.style.cssText = ""; return; }
+    var r = sIn.getBoundingClientRect();
+    sOut.style.position = "fixed";
+    sOut.style.top = (r.bottom + 6) + "px";
+    sOut.style.left = r.left + "px";
+    sOut.style.width = Math.min(520, innerWidth - r.left - 16) + "px";
+    sOut.style.maxHeight = (innerHeight - r.bottom - 24) + "px";
+  }
+  addEventListener("resize", function () { if (sOut && sOut.classList.contains("open")) placeResults(); });
+  if (sIn) {
+    sIn.addEventListener("input", runSearch);
+    sIn.addEventListener("keydown", function (e) {
+      var links = sOut.querySelectorAll("a");
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        sel = Math.max(0, Math.min(links.length - 1, sel + (e.key === "ArrowDown" ? 1 : -1)));
+        links.forEach(function (a, i) { a.classList.toggle("sel", i === sel); });
+      } else if (e.key === "Enter" && links.length) {
+        location.href = links[Math.max(sel, 0)].getAttribute("href");
+      } else if (e.key === "Escape") {
+        sIn.value = ""; runSearch(); sIn.blur();
+      }
+    });
+    document.addEventListener("click", function (e) { if (!e.target.closest(".gsearch")) sOut.classList.remove("open"); });
+    sIn.addEventListener("focus", function () { if (sOut.innerHTML) { sOut.classList.add("open"); placeResults(); } });
+    document.querySelector(".sidebar").addEventListener("scroll", function () { if (sOut.classList.contains("open")) placeResults(); });
+  }
+  function openSearch() {
+    if (!sIn) return;
+    if (matchMedia("(max-width:900px)").matches) document.body.classList.add("nav-open");
+    setTimeout(function () { sIn.focus(); }, 50);
+  }
+  var sBtn = document.querySelector(".search-btn");
+  if (sBtn) sBtn.addEventListener("click", openSearch);
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target.tagName || "").toLowerCase();
+    if (e.key === "/" && tag !== "input" && tag !== "textarea") { e.preventDefault(); openSearch(); }
+    if (e.key === "Escape") document.body.classList.remove("nav-open");
+  });
+
   renderProgress();
 })();
