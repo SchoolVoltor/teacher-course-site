@@ -51,7 +51,7 @@
       var id = btn.getAttribute("data-id");
       var d = !!state.done[id];
       btn.classList.toggle("done", d);
-      btn.textContent = d ? "✓ Тему вивчено" : "Позначити тему як вивчену";
+      btn.textContent = d ? "✓ Готово! (натисніть, щоб зняти)" : "Готово, тема зрозуміла";
     }
     var qs = document.querySelectorAll(".js-quiz-best");
     qs.forEach(function (el) {
@@ -114,7 +114,7 @@
     box.appendChild(again);
     function finish() {
       var pct = Math.round(correct / data.length * 100);
-      var msg = pct >= 80 ? "Чудово! Тему засвоєно." : pct >= 50 ? "Непогано. Перегляньте розділи, де були помилки." : "Варто ще раз уважно перечитати конспект.";
+      var msg = pct >= 80 ? "Супер! Видно, що тема вам близька." : pct >= 50 ? "Гарний результат! Пояснення біля питань підкажуть, що варто глянути ще раз." : "Нічого страшного, саме для цього гра й існує. Перегляньте пояснення і спробуйте ще раз, коли захочеться.";
       result.textContent = "Результат: " + correct + " з " + data.length + " (" + pct + "%). " + msg;
       again.style.display = "inline-flex";
       var prev = state.quiz[id];
@@ -213,6 +213,31 @@
   /* ---------- printable forms ---------- */
   document.querySelectorAll(".js-print").forEach(function (b) {
     b.addEventListener("click", function () { window.print(); });
+  });
+
+  /* ---------- tip of the day ---------- */
+  var tipsEl = document.getElementById("tips");
+  if (tipsEl) {
+    var tips = JSON.parse(tipsEl.textContent);
+    var day = Math.floor(Date.now() / 864e5) % tips.length;
+    function showTip(i) {
+      var t = tips[i];
+      document.querySelector(".js-tip-text").innerHTML = t.t;
+      var a = document.querySelector(".js-tip-link");
+      a.href = "lecture-" + t.n + ".html#practice";
+      a.textContent = "Із теми " + t.n + ": " + t.s + " →";
+    }
+    showTip(day);
+    document.querySelector(".js-tip-next").addEventListener("click", function () {
+      day = (day + 1 + Math.floor(Math.random() * (tips.length - 1))) % tips.length;
+      showTip(day);
+    });
+  }
+  document.querySelectorAll(".js-random-lecture").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      location.href = "lecture-" + (1 + Math.floor(Math.random() * LECTURES)) + ".html";
+    });
   });
 
   renderProgress();

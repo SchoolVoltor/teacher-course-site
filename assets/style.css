@@ -208,3 +208,9 @@ textarea{min-height:70px;resize:vertical}
   .sidebar,.topbar,.pager,.mark-done,.theme-toggle,.btn{display:none!important}
   .layout{display:block} body{background:#fff}
 }
+
+.card.hook{border-left:4px solid var(--accent-2);font-size:1.02rem}
+.card.hook .t,.tip-day .t{display:block;margin-bottom:6px;font-family:var(--serif)}
+.card.hook p{margin:0}
+.tip-day p{margin:0 0 10px}
+.tip-day .row{align-items:center;gap:12px;flex-wrap:wrap}
